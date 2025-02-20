@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
-#root {
-    padding: 0;
+@theme {
+    --color-moviesBg: #15141F;
+    --font-movies-lato: "Lato", sans-serif;
+}
+
+body {
+    justify-content: center;
 }
