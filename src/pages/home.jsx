@@ -17,7 +17,8 @@ function Home() {
                         className="container flex w-2/3 lg:w-4/10 h-4/10 md:h-3/10 lg:h-2/10 bg-gray-300/30 backdrop-blur-xs rounded-[20px]">
 
                         <div className="flex w-1/3 justify-center items-center">
-                            <img src="../public/icons/Play.svg" alt="play icon" className="w-4/10 h-auto"/>
+                            <img src="../public/icons/Play.svg" alt="play icon"
+                                 className="w-4/10 h-auto transition hover:scale-130"/>
                         </div>
 
 
@@ -38,6 +39,8 @@ function Home() {
                 <h2 className="pt-[32px] pb-[24px] mx-[30px] text-3xl capitalize">trending</h2>
 
                 <Carousel/>
+
+
             </section>
         </>
     )
