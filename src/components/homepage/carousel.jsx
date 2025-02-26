@@ -38,21 +38,35 @@ export default function Carousel() {
     }
 
     return (
-        <section className="w-screen flex py-8 justify-center items-center overflow-hidden">
+        <section className="container w-screen flex py-8 justify-center items-center overflow-hidden">
             <div style={container(screenSize)}>
                 <motion.button
                     initial={false}
                     aria-label="Previous"
                     style={button(screenSize)}
                     onClick={() => setSlide(-1)}
+                    whileHover={{scale: 1.05}}
                     whileTap={{scale: 0.9}}
                 >
                     <img src={items[wrap(0, items.length, selectedItem - 1)].image} alt="Previous"
                          style={arrowImage(screenSize)}/>
+
+                    {/* Name box */}
+                    <BottomBox screenSize={screenSize}/>
+                    {/* IMDB score */}
+                    <TopRightBox/>
                 </motion.button>
 
-                <AnimatePresence custom={direction} initial={false} mode="popLayout">
-                    <Slide key={selectedItem} image={items[selectedItem].image} screenSize={screenSize}/>
+                <AnimatePresence
+                    custom={direction}
+                    initial={false}
+                    mode="popLayout"
+                >
+                    <Slide
+                        key={selectedItem}
+                        image={items[selectedItem].image}
+                        screenSize={screenSize}
+                    />
                 </AnimatePresence>
 
                 <motion.button
@@ -60,16 +74,23 @@ export default function Carousel() {
                     aria-label="Next"
                     style={button(screenSize)}
                     onClick={() => setSlide(1)}
-                    whileFocus={{outline: `2px solid #0cdcf7`}}
+                    whileHover={{scale: 1.05}}
                     whileTap={{scale: 0.9}}
                 >
                     <img src={items[wrap(0, items.length, selectedItem + 1)].image} alt="Next"
                          style={arrowImage(screenSize)}/>
+
+                    {/* Name box */}
+                    <BottomBox screenSize={screenSize}/>
+                    {/* IMDB score */}
+                    <TopRightBox/>
                 </motion.button>
             </div>
         </section>
     );
 }
+
+//--- CURRENT MOVIE ---//
 
 const Slide = forwardRef(function Slide({image, screenSize}, ref) {
     const direction = usePresenceData();
@@ -87,15 +108,61 @@ const Slide = forwardRef(function Slide({image, screenSize}, ref) {
                     damping: 30,
                 },
             }}
+            whileTap={{scale: 0.9}}
+            whileHover={{scale: 1.05}}
             exit={{opacity: 0, x: direction * -50}}
-            style={{...box(screenSize), backgroundImage: `url(${image})`}}
-        />
+            style={{...box(screenSize), backgroundImage: `url(${image})`, position: 'relative'}}
+            className="container flex justify-center items-center"
+        >
+            {/* Name box */}
+            <BottomBox screenSize={screenSize}/>
+            {/* IMDB score */}
+            <TopRightBox/>
+        </motion.div>
     );
 });
 
-/**
- * ==============   Styles   ================
- */
+
+//--- STYLES ---//
+
+
+const BottomBox = ({screenSize}) => {
+    return (
+        <div style={bottomBoxStyle(screenSize)}
+             className="container flex justify-center items-center w-9/10 h-2/10 md:h-3/10 lg:h-2/10 bg-gray-300/30 backdrop-blur-xs rounded-[20px]">
+            <p className="capitalize">nom du film</p>
+        </div>
+    );
+};
+
+
+const TopRightBox = () => {
+    return (
+        <div style={topRightBoxStyle()} className="absolute top-4 right-4 bg-gray-300/30 p-2 rounded-[20px]">
+            <p className="uppercase text-xs text-left">imdb</p>
+            <div className="container flex gap-5 p-1">
+                <div className="container flex gap-5 p-1 w-full h-auto">
+                    <img src="../../../public/icons/Star.svg"
+                         alt="Star for IMDB rating (out of 10)"
+                         className="w-5 h-auto"
+                    />
+                </div>
+                {/* IMDB SCORE HERE */}
+                <p className="text-lg">7.0</p>
+            </div>
+        </div>
+    );
+};
+
+// This cannot be deleted or the App will just show a blank background
+const topRightBoxStyle = () => ({});
+
+
+const bottomBoxStyle = (screenSize) => ({
+    position: 'absolute',
+    bottom: 20,
+});
+
 
 const container = (screenSize) => ({
     display: "flex",
@@ -106,16 +173,16 @@ const container = (screenSize) => ({
 });
 
 const box = (screenSize) => ({
-    width: screenSize === 'mobile' ? 258 : screenSize === 'tablet' ? 360 : 258,
-    height: screenSize === 'mobile' ? 336 : screenSize === 'tablet' ? 640 : 336,
+    width: screenSize === 'mobile' ? 258 : screenSize === 'tablet' ? 360 : 400,
+    height: screenSize === 'mobile' ? 336 : screenSize === 'tablet' ? 640 : 700,
     backgroundSize: "cover",
     backgroundPosition: "center",
     borderRadius: "30px",
 });
 
 const button = (screenSize) => ({
-    width: screenSize === 'mobile' ? 224 : screenSize === 'tablet' ? 290 : 224,
-    height: screenSize === 'mobile' ? 292 : screenSize === 'tablet' ? 390 : 292,
+    width: screenSize === 'mobile' ? 224 : screenSize === 'tablet' ? 290 : 320,
+    height: screenSize === 'mobile' ? 292 : screenSize === 'tablet' ? 390 : 560,
     borderRadius: "30px",
     display: "flex",
     justifyContent: "center",
@@ -123,14 +190,12 @@ const button = (screenSize) => ({
     position: "relative",
     padding: 0,
     zIndex: 1,
-    outlineOffset: 2,
+    backgroundColor: "rgba(0,0,0,0)",
 });
 
 const arrowImage = (screenSize) => ({
-    width: screenSize === 'mobile' ? 224 : screenSize === 'tablet' ? 290 : 224,
-    height: screenSize === 'mobile' ? 292 : screenSize === 'tablet' ? 300 : 292,
+    width: screenSize === 'mobile' ? 224 : screenSize === 'tablet' ? 290 : 320,
+    height: screenSize === 'mobile' ? 292 : screenSize === 'tablet' ? 390 : 560,
     borderRadius: "30px",
     objectFit: "cover",
 });
-
-//test
