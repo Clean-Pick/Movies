@@ -45,7 +45,10 @@ export default function Carousel() {
                     aria-label="Previous"
                     style={button(screenSize)}
                     onClick={() => setSlide(-1)}
-                    whileHover={{scale: 1.05}}
+                    whileHover={{
+                        scale: 1.05,
+                        boxShadow: "0px 10px 5px #000"
+                    }}
                     whileTap={{scale: 0.9}}
                 >
                     <img src={items[wrap(0, items.length, selectedItem - 1)].image} alt="Previous"
@@ -74,8 +77,12 @@ export default function Carousel() {
                     aria-label="Next"
                     style={button(screenSize)}
                     onClick={() => setSlide(1)}
-                    whileHover={{scale: 1.05}}
+                    whileHover={{
+                        scale: 1.05,
+                        boxShadow: "0px 10px 5px #000"
+                    }}
                     whileTap={{scale: 0.9}}
+
                 >
                     <img src={items[wrap(0, items.length, selectedItem + 1)].image} alt="Next"
                          style={arrowImage(screenSize)}/>
@@ -109,7 +116,10 @@ const Slide = forwardRef(function Slide({image, screenSize}, ref) {
                 },
             }}
             whileTap={{scale: 0.9}}
-            whileHover={{scale: 1.05}}
+            whileHover={{
+                scale: 1.05,
+                boxShadow: "0px 10px 5px #000"
+            }}
             exit={{opacity: 0, x: direction * -50}}
             style={{...box(screenSize), backgroundImage: `url(${image})`, position: 'relative'}}
             className="container flex justify-center items-center"

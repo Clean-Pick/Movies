@@ -1,4 +1,6 @@
 import Carousel from "../components/homepage/carousel.jsx";
+import {motion} from "motion/react";
+import PlayIcon from "../../public/icons/Play.svg"
 
 function Home() {
 
@@ -17,8 +19,14 @@ function Home() {
                         className="container flex w-2/3 lg:w-4/10 h-4/10 md:h-3/10 lg:h-2/10 bg-gray-300/30 backdrop-blur-xs rounded-[20px]">
 
                         <div className="flex w-1/3 justify-center items-center">
-                            <img src="icons/Play.svg" alt="play icon"
-                                 className="w-4/10 h-auto transition hover:scale-130"/>
+                            <motion.img
+                                src={PlayIcon}
+                                alt="Play Icon"
+                                className="w-10 lg:w-20 h-auto cursor-pointer"
+                                initial={{scale: 1}}
+                                whileHover={{scale: 1.2}}
+                                whileTap={{scale: 0.9}}
+                            />
                         </div>
 
 
@@ -45,5 +53,8 @@ function Home() {
         </>
     )
 }
+
+//-- Styles --//
+
 
 export default Home;
