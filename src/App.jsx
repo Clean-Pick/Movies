@@ -1,13 +1,18 @@
 import './App.css'
+import {BrowserRouter as Router} from "react-router-dom";
 import Header from "./components/header.jsx";
-import Home from "./pages/home.jsx";
+import Footer from "./components/footer.jsx";
+import Nav from "./components/nav.jsx";
+
 
 function App() {
     return (
-        <section className="font-movies-lato w-screen h-screen bg-moviesBg">
-            <Header/>
-            <Home/>
-
+        <section className="font-movies-lato w-screen h-screen bg-moviesBg overflow-x-hidden">
+            <Router>
+                <Header/>
+                <Nav/>
+                <Footer/>
+            </Router>
         </section>
     )
 }
