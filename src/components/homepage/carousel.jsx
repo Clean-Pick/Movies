@@ -122,7 +122,7 @@ const Slide = forwardRef(function Slide({image, screenSize}, ref) {
             }}
             exit={{opacity: 0, x: direction * -50}}
             style={{...box(screenSize), backgroundImage: `url(${image})`, position: 'relative'}}
-            className="container flex justify-center items-center"
+            className="container flex justify-center items-center overflow-hidden"
         >
             {/* Name box */}
             <BottomBox screenSize={screenSize}/>
