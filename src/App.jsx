@@ -7,7 +7,7 @@ import Nav from "./components/nav.jsx";
 
 function App() {
     return (
-        <section className="font-movies-lato w-screen h-screen bg-moviesBg overflow-x-hidden">
+        <section className="font-movies-lato w-screen h-screen bg-moviesBg">
             <Router>
                 <Header/>
                 <Nav/>
