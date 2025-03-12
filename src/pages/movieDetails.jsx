@@ -4,8 +4,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlay, faStar} from '@fortawesome/free-solid-svg-icons';
 import {faClock as faClockRegular} from '@fortawesome/free-regular-svg-icons';
 import {useParams} from 'react-router-dom';
-import apiClient from '../api/apiClient';
-import MovieCard from '../components/discover/movieCard';
+import apiClient from '../api/apiClient.jsx';
+import MovieCard from '../components/discover/movieCard.jsx';
 
 const MovieDetails = () => {
     const {id} = useParams();
@@ -71,6 +71,7 @@ const MovieDetails = () => {
                     }}
                 >
                     <motion.button
+                        aria-label="play button"
                         className="flex justify-center items-center
                          h-16 md:h-20 lg:h-24 2xl:h-32
                          w-16 md:w-20 lg:w-24 2xl:w-32

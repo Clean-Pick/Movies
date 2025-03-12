@@ -156,6 +156,7 @@ const BottomBox = ({screenSize, title}) => {
                 justify-center items-center
                 w-9/10
                 h-2/10 md:h-3/10 lg:h-2/10
+                text-lg md:text-xl lg:text-3xl
                 bg-moviesBg/50
              backdrop-filter backdrop-blur-md
              p-2
@@ -170,8 +171,9 @@ const BottomBox = ({screenSize, title}) => {
 const TopRightBox = ({rating}) => {
     return (
         <div style={topRightBoxStyle()}
-             className="absolute top-4 right-4
-             p-2
+             className="
+             absolute top-4 right-4
+             p-1.5
              bg-moviesBg/50
              backdrop-filter backdrop-blur-md
              rounded-[20px]
@@ -182,8 +184,8 @@ const TopRightBox = ({rating}) => {
 
             <div className="container flex gap-5 p-1">
                 <div className="container
-                    flex justify-center align-middle items-center
-                    gap-5 p-1
+                    flex justify-center items-center align-middle
+                    gap-1 p-1
                     w-full h-auto
                  ">
 
