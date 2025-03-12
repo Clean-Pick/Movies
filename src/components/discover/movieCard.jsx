@@ -6,6 +6,7 @@ export default function MovieCard({movie, index}) {
     const posterUrl = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
 
     const handleClick = () => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
         navigate(`/movie/${movie.id}`)
     }
 
