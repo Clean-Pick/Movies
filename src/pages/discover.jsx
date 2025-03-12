@@ -1,5 +1,9 @@
+import MovieList from "../api/movieList.jsx";
+
 export default function Discover() {
     return (
-        <h1>Discover Page</h1>
+        <div className="mb-50 bg-moviesBg">
+            <MovieList/>
+        </div>
     )
 }

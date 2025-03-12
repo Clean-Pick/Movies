@@ -11,7 +11,7 @@ export default function Footer() {
             fixed bottom-0
             w-screen flex
             py-[35px]
-            z-10
+            z-20
             bg-moviesBg
             drop-shadow-[0_-10px_50px_rgba(0,0,0,1)]
             "
