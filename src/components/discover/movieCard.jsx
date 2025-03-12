@@ -1,10 +1,17 @@
 import {motion} from "motion/react";
+import {useNavigate} from "react-router-dom";
 
 export default function MovieCard({movie, index}) {
+    const navigate = useNavigate();
     const posterUrl = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
+
+    const handleClick = () => {
+        navigate(`/movie/${movie.id}`)
+    }
 
     return (
         <motion.li
+            onClick={handleClick}
             className="flex justify-center relative
                 w-39 md:w-53 xl:w-70
                 h-50 md:h-80 xl:h-100

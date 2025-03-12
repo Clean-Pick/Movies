@@ -11,7 +11,14 @@ function Home() {
 
                 {/* MOVIE IMAGE HERE */}
                 <div
-                    className="flex flex-col container w-full h-[200px] md:h-[400px] lg:h-[600px]  mx-10 xl:mx-50 p-4 bg-[url(../public/test/coco.jpg)] bg-cover bg-center rounded-[30px] shadow-lg">
+                    className="flex flex-col container
+                        w-full
+                        h-[200px] md:h-[400px] lg:h-[600px]
+                        mx-10 xl:mx-50
+                        p-4
+                        bg-[url(../public/test/coco.jpg)] bg-cover bg-center
+                        rounded-[30px]
+                        shadow-lg">
 
                     <div className="flex-grow"></div>
 
