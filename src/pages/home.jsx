@@ -23,7 +23,14 @@ function Home() {
                     <div className="flex-grow"></div>
 
                     <div
-                        className="container flex w-2/3 lg:w-4/10 h-4/10 md:h-3/10 lg:h-2/10 bg-gray-300/30 backdrop-blur-xs rounded-[20px]">
+                        className="container flex
+                        w-2/3 lg:w-4/10
+                        h-4/10 md:h-3/10 lg:h-2/10
+                        bg-moviesBg/50
+                        backdrop-filter backdrop-blur-md
+                        rounded-[20px]
+                        border
+                        border-t-1 border-l-1 border-b-0 border-r-0 border-[#504f56] border-opacity-100 border-t-[#504f56] border-l-[#504f56] border-b-transparent border-r-transparent">
 
                         <div className="flex w-1/3 justify-center items-center">
                             <motion.img

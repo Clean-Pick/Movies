@@ -71,7 +71,11 @@ const MovieDetails = () => {
                     }}
                 >
                     <motion.button
-                        className="flex justify-center items-center h-16 md:h-20 lg:h-24 2xl:h-32 w-16 md:w-20 lg:w-24 2xl:w-32 bg-transparent border backdrop-filter backdrop-blur-md rounded-full"
+                        className="flex justify-center items-center
+                         h-16 md:h-20 lg:h-24 2xl:h-32
+                         w-16 md:w-20 lg:w-24 2xl:w-32
+                         bg-transparent border backdrop-filter backdrop-blur-md
+                         rounded-full"
                         onClick={handlePosterClick}
                         initial={{scale: 0, opacity: 0, zIndex: 1}}
                         animate={{
