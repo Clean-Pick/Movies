@@ -4,16 +4,17 @@ import Carousel from "../components/homepage/carousel.jsx";
 import {motion} from "motion/react";
 import PlayIcon from "../../public/icons/Play.svg";
 import apiClient from "../api/apiClient.jsx";
+import LoadingScreen from "../components/loadingScreen.jsx";
 
 function Home() {
     const [randomMovie, setRandomMovie] = useState(null);
     const [backdropUrl, setBackdropUrl] = useState(null);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchRandomMovie = async () => {
             try {
-                // Choose a random page number between 1 and 10
                 const randomPage = Math.floor(Math.random() * 10) + 1;
                 const response = await apiClient.get(`/trending/movie/week?page=${randomPage}`);
                 const movies = response.data.results;
@@ -28,6 +29,8 @@ function Home() {
                 }
             } catch (error) {
                 console.error('Error fetching random movie:', error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -40,6 +43,8 @@ function Home() {
             navigate(`/movie/${randomMovie.id}`);
         }
     };
+
+    if (loading) return <LoadingScreen/>;
 
     return (
         <>

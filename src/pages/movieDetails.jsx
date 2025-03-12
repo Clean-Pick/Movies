@@ -6,6 +6,7 @@ import {faClock as faClockRegular} from '@fortawesome/free-regular-svg-icons';
 import {useParams} from 'react-router-dom';
 import apiClient from '../api/apiClient.jsx';
 import MovieCard from '../components/discover/movieCard.jsx';
+import LoadingScreen from '../components/loadingScreen.jsx';
 
 const MovieDetails = () => {
     const {id} = useParams();
@@ -40,6 +41,7 @@ const MovieDetails = () => {
                 setError(error);
             } finally {
                 setLoading(false);
+                setIsPlaying(false);
                 document.body.classList.add('loaded');
             }
         };
@@ -47,7 +49,7 @@ const MovieDetails = () => {
         fetchMovie();
     }, [id]);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <LoadingScreen/>;
     if (error) return <div>Error: {error.message}</div>;
 
     const handlePosterClick = () => {
