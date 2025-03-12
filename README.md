@@ -21,4 +21,5 @@ Currently, two official plugins are available:
 | Motion.dev                   | For animations                                       |
 | Axios                        | Handles the API responses                            |
 | TailwindCss                  | CSS framework for styling                            |
+| Font Awesome                 | For  nice free icons                                 |
 

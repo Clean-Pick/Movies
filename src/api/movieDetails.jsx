@@ -1,16 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {motion} from "motion/react";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faPlay, faStar} from '@fortawesome/free-solid-svg-icons';
+import {faClock as faClockRegular} from '@fortawesome/free-regular-svg-icons';
 import {useParams} from 'react-router-dom';
 import apiClient from '../api/apiClient';
 
 const MovieDetails = () => {
     const {id} = useParams();
     const [movie, setMovie] = useState(null);
-    const [trailer, setTrailer] = useState(null); // État pour stocker le trailer
+    const [trailer, setTrailer] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [backdropUrl, setBackdropUrl] = useState(null); // État pour stocker l'URL du backdrop
+    const [backdropUrl, setBackdropUrl] = useState(null);
 
     useEffect(() => {
         const fetchMovie = async () => {
@@ -18,19 +21,13 @@ const MovieDetails = () => {
                 const response = await apiClient.get(`/movie/${id}`);
                 setMovie(response.data);
 
-                // Récupérer les vidéos du film
                 const videoResponse = await apiClient.get(`/movie/${id}/videos`);
                 const trailers = videoResponse.data.results;
-
-                // Trouver le premier trailer
                 const movieTrailer = trailers.find(video => video.type === 'Trailer');
                 setTrailer(movieTrailer);
 
-                // Récupérer les images de fond (backdrops)
                 const imagesResponse = await apiClient.get(`/movie/${id}/images`);
                 const backdrops = imagesResponse.data.backdrops;
-
-                // Prendre le premier backdrop disponible
                 if (backdrops.length > 0) {
                     setBackdropUrl(`https://image.tmdb.org/t/p/original/${backdrops[0].file_path}`);
                 }
@@ -38,6 +35,7 @@ const MovieDetails = () => {
                 setError(error);
             } finally {
                 setLoading(false);
+                document.body.classList.add('loaded');
             }
         };
 
@@ -51,68 +49,178 @@ const MovieDetails = () => {
         setIsPlaying(true);
     };
 
+
+    //----- TEMP -----//
+    console.log(JSON.stringify(movie, null, 2));
+    //----- TEMP -----//
+
     return (
-        <section className="container w-screen mb-[1050px] bg-moviesBg">
+        <section className="w-screen
+        mb-[30px] lg:mb-[60px] xl:mb-[150px]
+        bg-moviesBg overflow-hidden">
             {!isPlaying ? (
                 <motion.div
-                    className="flex align-middle justify-center items-center w-screen md:h-150 lg:h-180"
+                    className="flex align-middle justify-center items-center w-full md:h-150 lg:h-180"
                     initial={{
-                        scale: 0,
                         opacity: 0,
                         zIndex: 1
                     }}
                     animate={{
-                        scale: 1,
                         opacity: 1,
-                        x: 0,
-                        transition: {
-                            type: "spring",
-                            stiffness: 300,
-                            damping: 20,
-                        },
                     }}
-                    exit={{opacity: 1}}
+                    exit={{
+                        opacity: 1
+                    }}
                     style={{
                         backgroundImage: `url(${backdropUrl})`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         minHeight: '350px',
                     }}
-
                 >
 
                     <motion.button
-                        className="h-50 w-50 bg-white"
-
+                        className="
+                            flex justify-center items-center
+                            h-16 md:h-20 lg:h-24 2xl:h-32
+                            w-16 md:w-20 lg:w-24 2xl:w-32
+                            bg-transparent
+                            border
+                            backdrop-filter backdrop-blur-md
+                            rounded-full"
                         onClick={handlePosterClick}
+                        initial={{
+                            scale: 0,
+                            opacity: 0,
+                            zIndex: 1
+                        }}
+                        animate={{
+                            scale: 1,
+                            opacity: 1,
+                            x: 0,
+                            transition: {
+                                type: "spring",
+                                stiffness: 300,
+                                damping: 20,
+                            },
+                        }}
+                        exit={{opacity: 1}}
+                        whileTap={{scale: 0.9}}
+                        whileHover={{
+                            scale: 1.2,
+                            boxShadow: "0px 5px 5px #000",
+                            zIndex: 10
+                        }}
+                        style={{
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                        }}
                     >
+
+                        <FontAwesomeIcon
+                            icon={faPlay}
+                            className="text-3xl md:text-5xl xl:text-6xl"
+
+                        />
 
                     </motion.button>
                 </motion.div>
             ) : (
-                // Afficher le trailer à la place du poster
                 <div>
                     <iframe
-                        className="w-screen h-80 md:h-150 lg:h-180 min-h-[350px]"
+                        className="w-full h-80 md:h-150 lg:h-180 min-h-[350px]"
                         src={`https://www.youtube.com/embed/${trailer.key}?autoplay=1`}
-                        title={`${movie.original_title} trailer`}
+                        title={`${movie.title} trailer`}
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
                         allowFullScreen
                     >
-
                     </iframe>
                 </div>
             )}
 
-            <section className="container mx-10 xl:mx-50 mb-[30px] lg:mb-[60px] xl:mb-[300px]">
-                <h2 className="text-3xl mb-[16px]">{movie.original_title}</h2>
-                <p className="mb-[16px]">{movie.overview}</p>
-                <p className="mb-[16px]">Release Date: {movie.release_date}</p>
-                <p className="mb-[16px]">Rating: {movie.vote_average}</p>
+            <section className="
+            mx-10 xl:mx-50
+            mb-[30px] lg:mb-[150px] xl:mb-[300px]
+            mt-[24px]"
+            >
+                <div>
+                    <h1 className="
+                        text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl
+                        mb-[16px]">{movie.title}
+                    </h1>
+
+                    <div className="flex gap-5
+                    mb-[16px]">
+                        <div className="flex items-center">
+                            <FontAwesomeIcon
+                                icon={faClockRegular}
+                                className="mr-2"
+                            />
+                            <p className="">{movie.runtime} minutes</p>
+                        </div>
+
+                        <div className="flex items-center">
+                            <FontAwesomeIcon
+                                icon={faStar}
+                                className="mr-2"
+                            />
+                            <p className="">{movie.vote_average} (IMDb)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr className="mb-[16px] w-full opacity-10"/>
+
+                <section className="flex gap-10 mb-[16px]">
+
+                    <div className="w-1/2">
+                        <h2 className="mb-[16px] text-2xl">Release Date</h2>
+                        <p className="mb-[16px]">{new Date(movie.release_date).toLocaleDateString('en-US', {
+                            month: 'long',
+                            day: 'numeric',
+                            year: 'numeric'
+                        })}</p>
+                    </div>
+
+                    <div className="w-1/2">
+                        <h2 className="mb-[16px] text-2xl">Genres</h2>
+
+                        <div className="flex flex-wrap gap-2">
+                            {movie.genres.map(genre => (
+                                <p key={genre.id} className="bg-[#201f27]
+                                 p-1.5
+
+                                 rounded-xl
+                                 text-sm
+                                 border-t-1 border-l-1 border-b-0 border-r-0
+                                 border-[#504f56] border-opacity-100
+                                 border-t-[#504f56] border-l-[#504f56]
+                                 border-b-transparent border-r-transparent">
+                                    {genre.name}
+                                </p>
+
+                            ))}
+                        </div>
+                    </div>
+
+                </section>
+
+
+                <hr className="mb-[16px] w-full opacity-10"/>
+
+                <section className="mb-[160px] md:mb-[16px]
+                h-auto">
+
+                    <h2 className="mb-[16px] text-2xl">Genres</h2>
+
+                    <p>{movie.overview}</p>
+                    
+                </section>
+
             </section>
         </section>
     );
 };
+
 
 export default MovieDetails;
