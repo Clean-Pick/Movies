@@ -52,6 +52,7 @@ const MovieList = ({searchQuery}) => {
     return (
         <section className="bg-moviesBg">
             <ul className="flex flex-wrap
+
             mt-[24px] justify-between">
                 <ErrorBoundary>
                     {movies.map((movie, index) => (

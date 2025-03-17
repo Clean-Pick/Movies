@@ -21,7 +21,7 @@ export default function MovieCard({movie, index}) {
                 w-32 sm:w-39 md:w-53 lg:w-70 xl:w-70
                 h-45 sm:h-50 md:h-80 lg:h-100 xl:h-100
                 bg-white rounded-[30px]
-                mb-15 sm:mb-15 md:mb-15 lg:mb-20 xl:mb-20"
+                mb-15 sm:mb-15 md:mb-15 lg:mb-20 xl:mb-27"
             initial={{scale: 0, opacity: 0, zIndex: 1}}
             animate={{
                 scale: 1,
