@@ -51,7 +51,8 @@ const MovieList = ({searchQuery}) => {
 
     return (
         <section className="bg-moviesBg">
-            <ul className="container flex flex-wrap gap-[20px] xl:gap-5 mt-[24px] justify-between">
+            <ul className="flex flex-wrap
+            mt-[24px] justify-between">
                 <ErrorBoundary>
                     {movies.map((movie, index) => (
                         <MovieCard key={`${movie.id}-${index}`} movie={movie} index={index}/>
