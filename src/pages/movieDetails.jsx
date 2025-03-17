@@ -8,7 +8,7 @@ import {useParams} from 'react-router-dom';
 import apiClient from '../api/apiClient.jsx';
 import MovieCard from '../components/discover/movieCard.jsx';
 import LoadingScreen from '../components/loadingScreen.jsx';
-import VideoPlayer from '../components/movieDetails/VideoPlayer.jsx';
+import VideoPlayer from '../components/movieDetails/videoPlayer.jsx';
 
 const MovieDetails = () => {
     const {id} = useParams();
