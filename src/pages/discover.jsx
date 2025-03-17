@@ -14,7 +14,8 @@ export default function Discover() {
     return (
         <div className="mb-50 mx-10 xl:mx-50 bg-moviesBg">
 
-            <div className="relative flex items-center mb-[16px]">
+            <div className="relative flex items-center
+            mb-[32px] lg:mb-[40px] xl:mb-[64px]">
 
                 <FontAwesomeIcon
                     icon={faSearch}
@@ -40,7 +41,7 @@ export default function Discover() {
                         pl-12"
                 />
             </div>
-            
+
             <MovieList searchQuery={searchQuery}/>
         </div>
     );

@@ -97,8 +97,13 @@ function Home() {
                     </div>
                 )}
             </section>
-            <section className="flex flex-wrap bg-moviesBg w-screen px-0 xl:px-50 pb-30 lg:pb-30">
+            <section className="flex flex-wrap bg-moviesBg
+                w-screen
+                px-0 xl:px-50
+                pb-30 lg:pb-30">
+
                 <h2 className="pt-[32px] pb-[24px] mx-10 xl:mx-0 text-3xl capitalize">trending</h2>
+
                 <Carousel/>
             </section>
         </>
