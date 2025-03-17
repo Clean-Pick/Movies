@@ -7,7 +7,7 @@ export default function Header() {
             <div className="container mx-10 xl:mx-50 text-3xl">
                 <h2>
                     <span className="text-orange-500">Movie</span>
-                    Browser
+                    Seeker
                 </h2>
             </div>
 
