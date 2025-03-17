@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import apiClient from "./apiClient.jsx";
 import MovieCard from "../components/discover/movieCard.jsx";
 import LoadingScreen from "../components/loadingScreen.jsx";
-import ErrorBoundary from "../components/ErrorBoundary.jsx";
+import ErrorBoundary from "../components/errorBoundary.jsx";
 
 const MovieList = ({searchQuery}) => {
     const [movies, setMovies] = useState([]);
