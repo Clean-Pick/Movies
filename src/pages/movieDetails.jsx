@@ -4,8 +4,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlay, faStar} from '@fortawesome/free-solid-svg-icons';
 import {faClock as faClockRegular} from '@fortawesome/free-regular-svg-icons';
 import {useParams} from 'react-router-dom';
-import apiClient from '../api/apiClient';
-import MovieCard from '../components/discover/movieCard';
+import apiClient from '../api/apiClient.jsx';
+import MovieCard from '../components/discover/movieCard.jsx';
+import LoadingScreen from '../components/loadingScreen.jsx';
 
 const MovieDetails = () => {
     const {id} = useParams();
@@ -40,6 +41,7 @@ const MovieDetails = () => {
                 setError(error);
             } finally {
                 setLoading(false);
+                setIsPlaying(false);
                 document.body.classList.add('loaded');
             }
         };
@@ -47,7 +49,7 @@ const MovieDetails = () => {
         fetchMovie();
     }, [id]);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <LoadingScreen/>;
     if (error) return <div>Error: {error.message}</div>;
 
     const handlePosterClick = () => {
@@ -71,7 +73,12 @@ const MovieDetails = () => {
                     }}
                 >
                     <motion.button
-                        className="flex justify-center items-center h-16 md:h-20 lg:h-24 2xl:h-32 w-16 md:w-20 lg:w-24 2xl:w-32 bg-transparent border backdrop-filter backdrop-blur-md rounded-full"
+                        aria-label="play button"
+                        className="flex justify-center items-center
+                         h-16 md:h-20 lg:h-24 2xl:h-32
+                         w-16 md:w-20 lg:w-24 2xl:w-32
+                         bg-transparent border backdrop-filter backdrop-blur-md
+                         rounded-full"
                         onClick={handlePosterClick}
                         initial={{scale: 0, opacity: 0, zIndex: 1}}
                         animate={{

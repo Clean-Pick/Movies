@@ -2,7 +2,7 @@ import {Route, Routes} from "react-router-dom";
 
 import Home from "../pages/home.jsx";
 import Discover from "../pages/discover.jsx";
-import MovieDetails from "../api/movieDetails.jsx";
+import MovieDetails from "../pages/movieDetails.jsx";
 
 export default function Nav() {
     return (

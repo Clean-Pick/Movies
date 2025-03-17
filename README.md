@@ -22,4 +22,5 @@ Currently, two official plugins are available:
 | Axios                        | Handles the API responses                            |
 | TailwindCss                  | CSS framework for styling                            |
 | Font Awesome                 | For  nice free icons                                 |
+ react spinners               | For loading spinners                                 |
 

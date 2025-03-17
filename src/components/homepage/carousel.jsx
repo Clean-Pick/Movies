@@ -1,21 +1,31 @@
 "use client";
 
 import {AnimatePresence, motion, usePresenceData, wrap} from "motion/react";
-import {forwardRef, useEffect, useState} from "react";
+import React, {forwardRef, useEffect, useState} from "react";
+import apiClient from "../../api/apiClient";
+import {faStar} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {useNavigate} from "react-router-dom";
 
 export default function Carousel() {
-    const items = [
-        {id: 1, image: "../public/test/coco.jpg"},
-        {id: 2, image: "../public/test/thegreenmile.webp"},
-        {id: 3, image: "../public/test/backtothefuture.webp"},
-        {id: 4, image: "../public/test/speedracer.webp"},
-        {id: 5, image: "../public/test/spiderverse.webp"},
-    ];
+    const [items, setItems] = useState([]);
     const [selectedItem, setSelectedItem] = useState(0);
     const [direction, setDirection] = useState(1);
     const [screenSize, setScreenSize] = useState(getScreenSize());
 
+
     useEffect(() => {
+        const fetchTrendingMovies = async () => {
+            try {
+                const response = await apiClient.get('/trending/movie/week');
+                setItems(response.data.results);
+            } catch (error) {
+                console.error('Error fetching trending movies:', error);
+            }
+        };
+
+        fetchTrendingMovies();
+
         const handleResize = () => {
             setScreenSize(getScreenSize());
         };
@@ -37,6 +47,7 @@ export default function Carousel() {
         setDirection(newDirection);
     }
 
+
     return (
         <section className="container w-screen flex py-8 justify-center items-center overflow-hidden">
             <div style={container(screenSize)}>
@@ -51,13 +62,12 @@ export default function Carousel() {
                     }}
                     whileTap={{scale: 0.9}}
                 >
-                    <img src={items[wrap(0, items.length, selectedItem - 1)].image} alt="Previous"
-                         style={arrowImage(screenSize)}/>
-
-                    {/* Name box */}
-                    <BottomBox screenSize={screenSize}/>
-                    {/* IMDB score */}
-                    <TopRightBox/>
+                    {items.length > 0 && (
+                        <img
+                            src={`https://image.tmdb.org/t/p/w500/${items[wrap(0, items.length, selectedItem - 1)].poster_path}`}
+                            alt="Previous"
+                            style={arrowImage(screenSize)}/>
+                    )}
                 </motion.button>
 
                 <AnimatePresence
@@ -65,11 +75,13 @@ export default function Carousel() {
                     initial={false}
                     mode="popLayout"
                 >
-                    <Slide
-                        key={selectedItem}
-                        image={items[selectedItem].image}
-                        screenSize={screenSize}
-                    />
+                    {items.length > 0 && (
+                        <Slide
+                            key={selectedItem}
+                            movie={items[selectedItem]}
+                            screenSize={screenSize}
+                        />
+                    )}
                 </AnimatePresence>
 
                 <motion.button
@@ -82,28 +94,31 @@ export default function Carousel() {
                         boxShadow: "0px 10px 5px #000"
                     }}
                     whileTap={{scale: 0.9}}
-
                 >
-                    <img src={items[wrap(0, items.length, selectedItem + 1)].image} alt="Next"
-                         style={arrowImage(screenSize)}/>
-
-                    {/* Name box */}
-                    <BottomBox screenSize={screenSize}/>
-                    {/* IMDB score */}
-                    <TopRightBox/>
+                    {items.length > 0 && (
+                        <img
+                            src={`https://image.tmdb.org/t/p/w500/${items[wrap(0, items.length, selectedItem + 1)].poster_path}`}
+                            alt="Next"
+                            style={arrowImage(screenSize)}/>
+                    )}
                 </motion.button>
             </div>
         </section>
     );
 }
 
-//--- CURRENT MOVIE ---//
-
-const Slide = forwardRef(function Slide({image, screenSize}, ref) {
+const Slide = forwardRef(function Slide({movie, screenSize}, ref) {
     const direction = usePresenceData();
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        window.scrollTo({top: 0, behavior: "smooth"});
+        navigate(`/movie/${movie.id}`)
+    }
 
     return (
         <motion.div
+            onClick={handleClick}
             ref={ref}
             initial={{opacity: 0, x: direction * 50}}
             animate={{
@@ -121,58 +136,80 @@ const Slide = forwardRef(function Slide({image, screenSize}, ref) {
                 boxShadow: "0px 10px 5px #000"
             }}
             exit={{opacity: 0, x: direction * -50}}
-            style={{...box(screenSize), backgroundImage: `url(${image})`, position: 'relative'}}
+            style={{
+                ...box(screenSize),
+                backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movie.poster_path})`,
+                position: 'relative'
+            }}
             className="container flex justify-center items-center overflow-hidden"
         >
-            {/* Name box */}
-            <BottomBox screenSize={screenSize}/>
-            {/* IMDB score */}
-            <TopRightBox/>
+            <BottomBox screenSize={screenSize} title={movie.title}/>
+            <TopRightBox rating={movie.vote_average}/>
         </motion.div>
     );
 });
 
-
-//--- STYLES ---//
-
-
-const BottomBox = ({screenSize}) => {
+const BottomBox = ({screenSize, title}) => {
     return (
         <div style={bottomBoxStyle(screenSize)}
-             className="container flex justify-center items-center w-9/10 h-2/10 md:h-3/10 lg:h-2/10 bg-gray-300/30 backdrop-blur-xs rounded-[20px]">
-            <p className="capitalize">nom du film</p>
+             className="container flex
+                justify-center items-center
+                w-9/10
+                h-2/10 md:h-3/10 lg:h-2/10
+                text-lg md:text-xl lg:text-3xl
+                bg-moviesBg/50
+             backdrop-filter backdrop-blur-md
+             p-2
+             rounded-[20px]
+             border
+             border-t-1 border-l-1 border-b-0 border-r-0 border-[#504f56] border-opacity-100 border-t-[#504f56] border-l-[#504f56] border-b-transparent border-r-transparent">
+            <p className="capitalize">{title}</p>
         </div>
     );
 };
 
-
-const TopRightBox = () => {
+const TopRightBox = ({rating}) => {
     return (
-        <div style={topRightBoxStyle()} className="absolute top-4 right-4 bg-gray-300/30 p-2 rounded-[20px]">
+        <div style={topRightBoxStyle()}
+             className="
+             absolute top-4 right-4
+             p-1.5
+             bg-moviesBg/50
+             backdrop-filter backdrop-blur-md
+             rounded-[20px]
+             border
+             border-t-1 border-l-1 border-b-0 border-r-0 border-[#504f56] border-opacity-100 border-t-[#504f56] border-l-[#504f56] border-b-transparent border-r-transparent">
+
             <p className="uppercase text-xs text-left">imdb</p>
+
             <div className="container flex gap-5 p-1">
-                <div className="container flex gap-5 p-1 w-full h-auto">
-                    <img src="../../../public/icons/Star.svg"
-                         alt="Star for IMDB rating (out of 10)"
-                         className="w-5 h-auto"
-                    />
+                <div className="container
+                    flex justify-center items-center align-middle
+                    gap-1 p-1
+                    w-full h-auto
+                 ">
+
+                    <FontAwesomeIcon icon={faStar} className="
+
+                    text-[#f7d430]
+                    text-2xl
+                    "/>
+
                 </div>
-                {/* IMDB SCORE HERE */}
-                <p className="text-lg">7.0</p>
+
+                <p className="text-lg">{rating.toFixed(1)}</p>
+
             </div>
         </div>
     );
 };
 
-// This cannot be deleted or the App will just show a blank background
 const topRightBoxStyle = () => ({});
-
 
 const bottomBoxStyle = (screenSize) => ({
     position: 'absolute',
     bottom: 20,
 });
-
 
 const container = (screenSize) => ({
     display: "flex",

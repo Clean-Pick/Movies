@@ -1,87 +1,66 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import apiClient from "./apiClient.jsx";
 import MovieCard from "../components/discover/movieCard.jsx";
+import LoadingScreen from "../components/loadingScreen.jsx";
+import ErrorBoundary from "../components/ErrorBoundary.jsx";
 
-const MovieList = () => {
+const MovieList = ({searchQuery}) => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(1);
+
+    useEffect(() => {
+        setMovies([]);
+        setPage(1);
+    }, [searchQuery]);
 
     useEffect(() => {
         const fetchMovies = async () => {
-            setLoading(true)
+            setLoading(true);
             try {
-                const response = await apiClient.get('/discover/movie', {
-                    params: {page: page},
-                });
-
-                // Filtrer duplicates
-                setMovies(prevMovies => {
-                    const newMovies = response.data.results;
-                    const allMovies = [...prevMovies, ...newMovies];
-
-                    const uniqueMovies = Array.from(new Set(allMovies.map(movie => movie.id)))
-                        .map(id => allMovies.find(movie => movie.id === id));
-
-                    console.log('Unique Movies:', uniqueMovies);
-
-                    return uniqueMovies;
-
-                })
-
-
-            } catch (error) {
-                console.error('Error fetching movies:', error)
-                setError(error)
+                const endpoint = searchQuery ? "/search/movie" : "/discover/movie";
+                const params = searchQuery ? {query: searchQuery, page} : {page};
+                const response = await apiClient.get(endpoint, {params});
+                const newMovies = response.data.results;
+                setMovies(prevMovies => (
+                    searchQuery ? newMovies : [...prevMovies, ...newMovies]
+                ));
+            } catch (err) {
+                console.error("Error fetching movies:", err);
+                setError(err);
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
-        }
-
-
-        fetchMovies()
-    }, [page]);
+        };
+        fetchMovies();
+    }, [page, searchQuery]);
 
     useEffect(() => {
         const handleScroll = () => {
-            // Vérifier si l'utilisateur a atteint le bas de la page
             if (!loading && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
-                if (!loading) {
-                    setPage(prevPage => prevPage + 1);
-                }
+                setPage(prev => prev + 1);
             }
         };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
     }, [loading]);
 
-    if (loading && page === 1) return <div>Loading...</div>
-    if (error) return <div>Error: {error.message}</div>
+    if (loading && movies.length === 0) return <LoadingScreen/>;
+    if (error) return <div>Error: {error.message}</div>;
 
     return (
-        <section className="mx-10 xl:mx-50">
-            <h1>Movie List</h1>
-
+        <section className="bg-moviesBg">
             <ul className="container flex flex-wrap gap-[20px] xl:gap-5 mt-[24px] justify-between">
-                
-                {movies.map((movie, index) => (
-
-                    <MovieCard
-                        key={movie.id}
-                        movie={movie}
-                        index={index}
-                    />
-
-                ))}
+                <ErrorBoundary>
+                    {movies.map((movie, index) => (
+                        <MovieCard key={`${movie.id}-${index}`} movie={movie} index={index}/>
+                    ))}
+                </ErrorBoundary>
             </ul>
-            {loading && <div className="text-2xl">Loading more movies...</div>}
+            {loading && <div className="text-2xl"><LoadingScreen/></div>}
         </section>
     );
 };
-
 
 export default MovieList;
