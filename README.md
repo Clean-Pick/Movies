@@ -1,26 +1,75 @@
-# React + Vite
+# Movie App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web application built with React.js that allows users to browse and discover movies using The Great Movie
+Database API.
 
-Currently, two official plugins are available:
+the project look was inspired
+by [this figma design](https://www.figma.com/design/jzPxr68qxAwMawMluQfopa/Movie-Streaming-App-(Community)-(Community)?node-id=0-1&p=f&t=FRLnybljYvcYLacW-0)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md)
-  uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast
-  Refresh
+![React](https://img.shields.io/badge/React-v17.0.2-blue)
 
-#
+## Features :
 
-## Technologies used :
+- Browse popular movies with your smartphone, tablet or personal computer.
+- Search for movies by title.
+- View movie details such as the title, release date, rating, overview, and genres.
+- Get recommendations for similar movies.
+
+## Planned Features :
+
+- Handle profile creation and authentication.
+- Save favorite movies.
+- Save movies to watch later.
+- Create a watchlist.
+- Create a list of watched movies.
+    - Sort movies by genre, rating, release date, etc.
+
+## Technologies Used :
 
 | Technology                   | Purpose                                              |
 |------------------------------|------------------------------------------------------|
-| React.js (Vite.js)           | Javascript Framework for building the intercative UI |
+| React.js (Vite.js)           | JavaScript Framework for building the interactive UI |
 | React Router                 | For routing and navigation                           |
 | The Great Movie Database API | Provides movie data for the app                      |
 | Motion.dev                   | For animations                                       |
 | Axios                        | Handles the API responses                            |
-| TailwindCss                  | CSS framework for styling                            |
-| Font Awesome                 | For  nice free icons                                 |
- react spinners               | For loading spinners                                 |
+| Tailwind CSS                 | CSS framework for styling                            |
+| Font Awesome                 | For nice free icons                                  |
+| React Spinners               | For loading spinners                                 |
 
+## Installation
+
+To install the project, clone the repository and run the following command:
+
+```bash
+npm install
+```
+
+Make sure to have Node.js and npm installed.
+
+You WILL need an API key from The Great Movie Database API. You can get
+one [here](https://www.themoviedb.org/documentation/api).
+
+Once done, you have to create a `.env` file at the root of the project and add the following line:
+
+```bash
+VITE_BEARER_TOKEN=your_personal_token_here
+```
+
+Remember that this token is personal and should not be shared with anyone.
+
+## Running the Application
+
+To run the application locally, use:
+
+```bash
+npm run dev
+```
+
+Visit `http://localhost:3000` to view the app.
+
+## Roadmap
+
+- [ ] Add user authentication
+- [ ] Implement favorite movies feature
+- [ ] Enhance the user interface
