@@ -1,5 +1,7 @@
 # Movie App
 
+link to the live project [here](https://mseek.netlify.app/)
+
 A modern web application built with React.js that allows users to browse and discover movies using The Great Movie
 Database API.
 
