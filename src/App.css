@@ -15,4 +15,10 @@ body {
     justify-content: center;
     background-color: #15141F;
     color: white;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+

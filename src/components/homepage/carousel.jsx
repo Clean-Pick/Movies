@@ -49,7 +49,12 @@ export default function Carousel() {
 
 
     return (
-        <section className="container w-screen flex py-8 justify-center items-center overflow-hidden">
+        <section className="
+        w-full
+        flex justify-center items-center
+        py-8
+        overflow-hidden">
+
             <div style={container(screenSize)}>
                 <motion.button
                     initial={false}
