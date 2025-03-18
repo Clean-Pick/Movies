@@ -14,7 +14,7 @@ export default function NavButtons() {
                     <motion.img
                         src={Home}
                         alt="Home Icon"
-                        className="cursor-pointer h-10 w-10"
+                        className="cursor-pointer h-10 lg:h-8 w-10 lg:w-8"
                         initial={{scale: 1}}
                         whileHover={{
                             scale: 1.2,
@@ -30,7 +30,7 @@ export default function NavButtons() {
                          className="flex justify-center items-center"
                 >
                     <motion.div
-                        className="flex bg-[#3d3c45] w-10 h-10 rounded-4xl justify-center items-center"
+                        className="flex bg-[#3d3c45] cursor-pointer h-10 lg:h-8 w-10 lg:w-8 rounded-4xl justify-center items-center"
                         initial={{
                             scale: 1,
                             backgroundImage: ""
@@ -61,7 +61,7 @@ export default function NavButtons() {
                     <motion.img
                         src={Profile}
                         alt="Profile Icon"
-                        className="cursor-pointer h-10 w-10"
+                        className="cursor-pointer h-10 lg:h-8 w-10 lg:w-8"
                         initial={{scale: 1}}
                         whileHover={{scale: 1.2}}
                         whileTap={{scale: 0.9}}
