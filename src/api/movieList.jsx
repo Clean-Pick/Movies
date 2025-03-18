@@ -58,9 +58,15 @@ const MovieList = ({searchQuery, selectedCategories}) => {
         <section className="bg-moviesBg">
             <ul className="flex flex-wrap mt-[24px] justify-between">
                 <ErrorBoundary>
-                    {movies.map((movie, index) => (
-                        <MovieCard key={`${movie.id}-${index}`} movie={movie} index={index}/>
-                    ))}
+                    {movies.length === 0 ? (
+                        <div className="w-full text-center text-lg p-4 mt-40">
+                            <p>No movies found for the selected categories.</p>
+                        </div>
+                    ) : (
+                        movies.map((movie, index) => (
+                            <MovieCard key={`${movie.id}-${index}`} movie={movie} index={index}/>
+                        ))
+                    )}
                 </ErrorBoundary>
             </ul>
             {loading && <div className="text-2xl"><LoadingScreen/></div>}

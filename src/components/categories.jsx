@@ -29,12 +29,15 @@ const Categories = ({selectedCategories, setSelectedCategories}) => {
             setSelectedCategories([...selectedCategories, id]);
         }
     };
-
+    
     return (
-        <div className="overflow-x-auto
+        <div className=" w-full
+            overflow-x-scroll lg:overflow-x-auto
             whitespace-nowrap xl:whitespace-normal
-            mb-4">
-            <div className="flex flex-nowrap gap-2">
+            mb-10">
+            <div className="flex flex-nowrap
+            gap-3 md:gap-5 lg:gap-2 xl:gap-2 2xl:gap-2
+            ">
                 {categoriesList.map(category => (
                     <button
                         key={category.id}
