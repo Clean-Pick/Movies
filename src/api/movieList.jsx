@@ -1,10 +1,11 @@
+// src/api/movieList.jsx
 import React, {useEffect, useState} from "react";
 import apiClient from "./apiClient.jsx";
 import MovieCard from "../components/discover/movieCard.jsx";
 import LoadingScreen from "../components/loadingScreen.jsx";
 import ErrorBoundary from "../components/errorBoundary.jsx";
 
-const MovieList = ({searchQuery}) => {
+const MovieList = ({searchQuery, selectedCategories}) => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -13,18 +14,22 @@ const MovieList = ({searchQuery}) => {
     useEffect(() => {
         setMovies([]);
         setPage(1);
-    }, [searchQuery]);
+    }, [searchQuery, selectedCategories]);
 
     useEffect(() => {
         const fetchMovies = async () => {
             setLoading(true);
             try {
                 const endpoint = searchQuery ? "/search/movie" : "/discover/movie";
-                const params = searchQuery ? {query: searchQuery, page} : {page};
+                const params = {
+                    page,
+                    ...(searchQuery ? {query: searchQuery} : {}),
+                    ...(selectedCategories.length > 0 ? {with_genres: selectedCategories.join(',')} : {})
+                };
                 const response = await apiClient.get(endpoint, {params});
                 const newMovies = response.data.results;
                 setMovies(prevMovies => (
-                    searchQuery ? newMovies : [...prevMovies, ...newMovies]
+                    searchQuery || selectedCategories.length > 0 ? newMovies : [...prevMovies, ...newMovies]
                 ));
             } catch (err) {
                 console.error("Error fetching movies:", err);
@@ -34,7 +39,7 @@ const MovieList = ({searchQuery}) => {
             }
         };
         fetchMovies();
-    }, [page, searchQuery]);
+    }, [page, searchQuery, selectedCategories]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -51,9 +56,7 @@ const MovieList = ({searchQuery}) => {
 
     return (
         <section className="bg-moviesBg">
-            <ul className="flex flex-wrap
-
-            mt-[24px] justify-between">
+            <ul className="flex flex-wrap mt-[24px] justify-between">
                 <ErrorBoundary>
                     {movies.map((movie, index) => (
                         <MovieCard key={`${movie.id}-${index}`} movie={movie} index={index}/>

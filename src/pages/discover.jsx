@@ -3,9 +3,11 @@ import MovieList from "../api/movieList.jsx";
 import {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearch} from "@fortawesome/free-solid-svg-icons";
+import Categories from "../components/categories.jsx";
 
 export default function Discover() {
     const [searchQuery, setSearchQuery] = useState('');
+    const [selectedCategories, setSelectedCategories] = useState([]);
 
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
@@ -42,7 +44,9 @@ export default function Discover() {
                 />
             </div>
 
-            <MovieList searchQuery={searchQuery}/>
+            <Categories selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories}/>
+
+            <MovieList searchQuery={searchQuery} selectedCategories={selectedCategories}/>
         </div>
     );
 }
