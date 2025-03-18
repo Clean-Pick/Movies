@@ -25,23 +25,32 @@ const MovieDetails = () => {
             try {
                 const response = await apiClient.get(`/movie/${id}`);
                 setMovie(response.data);
+
                 const videoResponse = await apiClient.get(`/movie/${id}/videos`);
                 const trailers = videoResponse.data.results;
                 const movieTrailer = trailers.find((video) => video.type === 'Trailer');
                 setTrailer(movieTrailer);
+
                 const imagesResponse = await apiClient.get(`/movie/${id}/images`);
                 const backdrops = imagesResponse.data.backdrops;
+
                 if (backdrops.length > 0) {
                     setBackdropUrl(`https://image.tmdb.org/t/p/original/${backdrops[0].file_path}`);
                 }
+
                 const recommendationsResponse = await apiClient.get(`/movie/${id}/recommendations`);
                 setRecommendations(recommendationsResponse.data.results);
+
             } catch (error) {
+
                 setError(error);
+
             } finally {
+
                 setLoading(false);
                 setIsPlaying(false);
                 document.body.classList.add('loaded');
+
             }
         };
 
@@ -89,6 +98,7 @@ const MovieDetails = () => {
                         <FontAwesomeIcon icon={faPlay} className="text-3xl md:text-5xl xl:text-6xl"/>
                     </motion.button>
                 </motion.div>
+
             ) : (
                 trailer ? (
                     <VideoPlayer video={trailer}/>
@@ -155,11 +165,26 @@ const MovieDetails = () => {
                 </section>
                 <hr className="mb-[16px] w-full opacity-10"/>
                 <section className="mb-[160px] md:mb-[16px] h-auto">
+
                     <h2 className="mb-[16px] text-2xl">Recommended Movies</h2>
+
                     <ul className="flex flex-wrap gap-4">
-                        {recommendations.map((recommendation, index) => (
-                            <MovieCard key={recommendation.id} movie={recommendation} index={index}/>
-                        ))}
+
+
+                        {recommendations.length === 0 ? (
+                            <div className="flex justify-center items-center
+                            w-full
+                            h-20
+                            mt-10 xl:mt-30
+                            mb-25 xs:mb-0">
+                                <p className="text-md">No recommendations available for this movie.</p>
+                            </div>
+                        ) : (
+                            recommendations.map((recommendation, index) => (
+                                <MovieCard key={recommendation.id} movie={recommendation} index={index}/>
+                            ))
+                        )}
+
                     </ul>
                 </section>
             </section>
