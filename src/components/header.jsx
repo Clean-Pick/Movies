@@ -8,7 +8,7 @@ export default function Header() {
             bg-moviesBg
             lg:fixed lg:top-0
             z-20">
-            <section className="w-7/10 flex py-[32px] mx-10 xl:mx-50">
+            <section className="w-7/10 flex py-[32px] lg:py-[16px] mx-10 xl:mx-50">
 
                 <NavLink to={"/"} className="container text-3xl">
 

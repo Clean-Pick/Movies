@@ -48,7 +48,7 @@ function Home() {
 
     return (
         <>
-            <section className="w-screen h-auto flex justify-center lg:mt-[32px]">
+            <section className="w-screen h-auto flex justify-center lg:mt-[80px]">
                 {randomMovie && backdropUrl && (
                     <div
                         className="flex flex-col container
