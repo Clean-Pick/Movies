@@ -13,6 +13,9 @@ export default function Carousel() {
     const [direction, setDirection] = useState(1);
     const [screenSize, setScreenSize] = useState(getScreenSize());
 
+    let startX = 0;
+    let endX = 0;
+
 
     useEffect(() => {
         const fetchTrendingMovies = async () => {
@@ -47,6 +50,22 @@ export default function Carousel() {
         setDirection(newDirection);
     }
 
+    const handleTouchStart = (e) => {
+        startX = e.touches[0].clientX;
+    }
+
+    const handleTouchMove = (e) => {
+        endX = e.touches[0].clientX;
+    }
+
+    const handleTouchEnd = (e) => {
+        if (startX - endX > 50) {
+            setSlide(1)
+        } else if (endX - startX > 50) {
+            setSlide(-1)
+        }
+    }
+
 
     return (
         <section className="
@@ -55,7 +74,11 @@ export default function Carousel() {
         py-8
         overflow-hidden">
 
-            <div style={container(screenSize)}>
+            <div style={container(screenSize)}
+                 onTouchStart={handleTouchStart}
+                 onTouchMove={handleTouchMove}
+                 onTouchEnd={handleTouchEnd}>
+
                 <motion.button
                     initial={false}
                     aria-label="Previous"
