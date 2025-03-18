@@ -9,6 +9,7 @@ the project look was inspired
 by [this figma design](https://www.figma.com/design/jzPxr68qxAwMawMluQfopa/Movie-Streaming-App-(Community)-(Community)?node-id=0-1&p=f&t=FRLnybljYvcYLacW-0)
 
 ![React](https://img.shields.io/badge/React-v17.0.2-blue)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e14f9954-2e43-46da-982b-8b75a94316c2/deploy-status)](https://app.netlify.com/sites/moviesseeker/deploys)
 
 ## Features :
 
