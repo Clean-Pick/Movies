@@ -18,8 +18,8 @@ function App() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // Affiche le Header uniquement si l'écran est large et que l'URL commence par '/movie/'
-    const showHeader = isLargeScreen && location.pathname.startsWith('/movie/');
+    // Affiche le Header partout sauf sur '/movie/' si l'écran est petit
+    const showHeader = isLargeScreen || !location.pathname.startsWith('/movie/');
 
     return (
         <section className="font-movies-lato w-screen h-screen bg-moviesBg">

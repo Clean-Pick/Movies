@@ -65,7 +65,8 @@ const MovieDetails = () => {
     };
 
     return (
-        <section className="w-screen mb-[30px] lg:mb-[60px] xl:mb-[150px] bg-moviesBg overflow-hidden">
+        <section className="w-screen mb-[30px] lg:mb-[60px] xl:mb-[150px] bg-moviesBg overflow-hidden
+        lg:mt-[32px]">
             {!isPlaying ? (
                 <motion.div
                     className="flex align-middle justify-center items-center w-full md:h-150 lg:h-180"
