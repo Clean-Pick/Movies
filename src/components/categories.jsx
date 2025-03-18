@@ -29,7 +29,7 @@ const Categories = ({selectedCategories, setSelectedCategories}) => {
             setSelectedCategories([...selectedCategories, id]);
         }
     };
-    
+
     return (
         <div className=" w-full
             overflow-x-scroll lg:overflow-x-auto
@@ -44,7 +44,7 @@ const Categories = ({selectedCategories, setSelectedCategories}) => {
                         onClick={() => toggleCategory(category.id)}
                         className={`p-1.5
                         rounded-xl text-sm 
-                        transition-colors duration-200 ${selectedCategories.includes(category.id) ? ' text-orange-500 border-b-1 border-orange-500' : 'text-white'}`}
+                        transition-colors duration-200 ${selectedCategories.includes(category.id) ? ' text-orange-500 border-t-1 border-orange-500 ' : 'text-white border-b-1 border-gray-400/50'}`}
                     >
                         {category.name}
                     </button>
