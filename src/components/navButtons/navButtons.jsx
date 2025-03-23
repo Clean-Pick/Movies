@@ -22,7 +22,7 @@ export default function NavButtons() {
                             backgroundImage: "linear-gradient(240deg, rgba(243,136,108,1) 0%, rgba(175,74,59,1) 100%)",
                             color: "rgba(255, 255, 255, 1)"
                         }}
-                        whileTap={{scale: 0.9}}
+                        whileTap={{scale: 0.5}}
                         transition={{
                             backgroundImage: {duration: 0.3, ease: "easeInOut"},
                             color: {duration: 0.3, ease: "easeInOut"}
@@ -49,7 +49,7 @@ export default function NavButtons() {
                             scale: 1.2,
                             backgroundImage: "linear-gradient(240deg, rgba(243,136,108,1) 0%, rgba(175,74,59,1) 100%)"
                         }}
-                        whileTap={{scale: 0.9}}
+                        whileTap={{scale: 0.5}}
                         transition={{
                             backgroundImage: {duration: 0.3, ease: "easeInOut"}
                         }}
@@ -81,7 +81,7 @@ export default function NavButtons() {
                             backgroundImage: "linear-gradient(240deg, rgba(243,136,108,1) 0%, rgba(175,74,59,1) 100%)",
                             color: "rgba(255, 255, 255, 1)"
                         }}
-                        whileTap={{scale: 0.9}}
+                        whileTap={{scale: 0.5}}
                         transition={{
                             backgroundImage: {duration: 0.3, ease: "easeInOut"},
                             color: {duration: 0.3, ease: "easeInOut"}
