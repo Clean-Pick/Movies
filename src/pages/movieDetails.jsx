@@ -65,8 +65,8 @@ const MovieDetails = () => {
     };
 
     return (
-        <section className="w-screen mb-[30px] lg:mb-[60px] xl:mb-[150px] bg-moviesBg overflow-hidden
-        lg:mt-[32px]">
+        <section className="w-screen mb-[30px] lg:mb-[60px] xl:mb-[150px] bg-moviesBg
+        lg:mt-[64px]">
             {!isPlaying ? (
                 <motion.div
                     className="flex align-middle justify-center items-center w-full md:h-150 lg:h-180"
@@ -104,6 +104,7 @@ const MovieDetails = () => {
                 trailer ? (
                     <VideoPlayer video={trailer}/>
                 ) : (
+
                     // Display backdrop with error overlay when no trailer is available
                     <div
                         className="w-full md:h-150 lg:h-180 min-h-[350px] relative"

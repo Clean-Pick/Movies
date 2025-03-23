@@ -25,7 +25,6 @@ by [this figma design](https://www.figma.com/design/jzPxr68qxAwMawMluQfopa/Movie
 - Save movies to watch later.
 - Create a watchlist.
 - Create a list of watched movies.
-    - Sort movies by genre, rating, release date, etc.
 
 ## Technologies Used :
 
@@ -76,3 +75,4 @@ Visit `http://localhost:3000` to view the app.
 - [ ] Add user authentication
 - [ ] Implement favorite movies feature
 - [ ] Enhance the user interface
+- [x] Sort movies by genre, rating, release date, etc.

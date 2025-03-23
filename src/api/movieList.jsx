@@ -55,7 +55,7 @@ const MovieList = ({searchQuery, selectedCategories}) => {
     if (error) return <div>Error: {error.message}</div>;
 
     return (
-        <section className="bg-moviesBg">
+        <section className="">
             <ul className="flex flex-wrap mt-[24px] justify-between">
                 <ErrorBoundary>
                     {movies.length === 0 ? (
